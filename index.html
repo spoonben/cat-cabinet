@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #1a1a2e;
+      font-family: 'Courier New', monospace;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .pixel-art {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .cabinet {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #8b5a2b;
+      padding: 8px;
+      border: 8px solid #5c3d1e;
+      box-shadow: inset 0 0 0 4px #a0522d;
+    }
+
+    .cabinet-top {
+      width: 200px;
+      height: 16px;
+      background: #5c3d1e;
+    }
+
+    .cabinet-opening {
+      width: 180px;
+      height: 160px;
+      background: #2a2a2a;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      border: 4px solid #4a3520;
+      position: relative;
+    }
+
+    .cat {
+      width: 120px;
+      height: 100px;
+      position: relative;
+    }
+
+    /* Cat pixel art using box-shadows */
+    .cat-pixel {
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      background: transparent;
+      box-shadow:
+        /* Ears */
+        24px 0 0 #ff9933,
+        32px 0 0 #ff9933,
+        80px 0 0 #ff9933,
+        88px 0 0 #ff9933,
+        24px 8px 0 #ff9933,
+        32px 8px 0 #ffb366,
+        40px 8px 0 #ff9933,
+        72px 8px 0 #ff9933,
+        80px 8px 0 #ffb366,
+        88px 8px 0 #ff9933,
+        /* Head top */
+        32px 16px 0 #ff9933,
+        40px 16px 0 #ff9933,
+        48px 16px 0 #ff9933,
+        56px 16px 0 #ff9933,
+        64px 16px 0 #ff9933,
+        72px 16px 0 #ff9933,
+        80px 16px 0 #ff9933,
+        /* Head */
+        24px 24px 0 #ff9933,
+        32px 24px 0 #ff9933,
+        40px 24px 0 #ff9933,
+        48px 24px 0 #ff9933,
+        56px 24px 0 #ff9933,
+        64px 24px 0 #ff9933,
+        72px 24px 0 #ff9933,
+        80px 24px 0 #ff9933,
+        88px 24px 0 #ff9933,
+        /* Eyes row */
+        24px 32px 0 #ff9933,
+        32px 32px 0 #ff9933,
+        40px 32px 0 #000,
+        48px 32px 0 #ff9933,
+        56px 32px 0 #ff9933,
+        64px 32px 0 #ff9933,
+        72px 32px 0 #000,
+        80px 32px 0 #ff9933,
+        88px 32px 0 #ff9933,
+        /* Nose/mouth row */
+        24px 40px 0 #ff9933,
+        32px 40px 0 #ff9933,
+        40px 40px 0 #ff9933,
+        48px 40px 0 #ff9933,
+        56px 40px 0 #ffb3b3,
+        64px 40px 0 #ff9933,
+        72px 40px 0 #ff9933,
+        80px 40px 0 #ff9933,
+        88px 40px 0 #ff9933,
+        /* Whiskers/chin */
+        16px 48px 0 #ccc,
+        24px 48px 0 #ff9933,
+        32px 48px 0 #ff9933,
+        40px 48px 0 #ff9933,
+        48px 48px 0 #ffb366,
+        56px 48px 0 #ffb366,
+        64px 48px 0 #ffb366,
+        72px 48px 0 #ff9933,
+        80px 48px 0 #ff9933,
+        88px 48px 0 #ff9933,
+        96px 48px 0 #ccc,
+        /* Body */
+        24px 56px 0 #ff9933,
+        32px 56px 0 #ff9933,
+        40px 56px 0 #ffb366,
+        48px 56px 0 #ffb366,
+        56px 56px 0 #ffb366,
+        64px 56px 0 #ffb366,
+        72px 56px 0 #ffb366,
+        80px 56px 0 #ff9933,
+        88px 56px 0 #ff9933,
+        /* Body */
+        16px 64px 0 #ff9933,
+        24px 64px 0 #ff9933,
+        32px 64px 0 #ffb366,
+        40px 64px 0 #ffb366,
+        48px 64px 0 #ffb366,
+        56px 64px 0 #ffb366,
+        64px 64px 0 #ffb366,
+        72px 64px 0 #ffb366,
+        80px 64px 0 #ff9933,
+        88px 64px 0 #ff9933,
+        96px 64px 0 #ff9933,
+        /* Paws */
+        16px 72px 0 #ff9933,
+        24px 72px 0 #ffb366,
+        32px 72px 0 #ffb366,
+        40px 72px 0 #ffb366,
+        48px 72px 0 #ffb366,
+        56px 72px 0 #ffb366,
+        64px 72px 0 #ffb366,
+        72px 72px 0 #ffb366,
+        80px 72px 0 #ffb366,
+        88px 72px 0 #ff9933,
+        96px 72px 0 #ff9933,
+        /* Front paws */
+        16px 80px 0 #ffcc99,
+        24px 80px 0 #ffcc99,
+        32px 80px 0 #ff9933,
+        40px 80px 0 #ff9933,
+        48px 80px 0 #ff9933,
+        56px 80px 0 #ff9933,
+        64px 80px 0 #ff9933,
+        72px 80px 0 #ff9933,
+        80px 80px 0 #ffcc99,
+        88px 80px 0 #ffcc99;
+    }
+
+    .shelf {
+      width: 200px;
+      height: 12px;
+      background: #5c3d1e;
+      margin-top: -4px;
+    }
+
+    .cabinet-bottom {
+      width: 200px;
+      height: 24px;
+      background: #8b5a2b;
+      border-top: 4px solid #5c3d1e;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coming Soon</h1>
+
+  <div class="cabinet pixel-art">
+    <div class="cabinet-top"></div>
+    <div class="cabinet-opening">
+      <div class="cat">
+        <div class="cat-pixel"></div>
+      </div>
+    </div>
+    <div class="shelf"></div>
+    <div class="cabinet-bottom"></div>
+  </div>
+
+  <footer>Something purrfect is on the way...</footer>
+</body>
+</html>
