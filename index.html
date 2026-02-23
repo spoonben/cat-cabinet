@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>Cat Cabinet Improv</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -11,218 +16,276 @@
       box-sizing: border-box;
     }
 
+    html {
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
       background: #1a1a2e;
       font-family: 'Courier New', monospace;
       color: #fff;
+      overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5rem;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    .pixel-art {
+    .site-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.25rem, 5vw, 3rem);
+      color: #ff9933;
+      text-shadow:
+        3px 3px 0 #5c3d1e,
+        4px 4px 0 #2a2a2a;
+      letter-spacing: 0.1rem;
+      margin-bottom: 0.5rem;
+      padding: 0 0.5rem;
+      text-align: center;
+      word-break: break-word;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
     }
 
-    .cabinet {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: #8b5a2b;
-      padding: 8px;
-      border: 8px solid #5c3d1e;
-      box-shadow: inset 0 0 0 4px #a0522d;
+    .site-title .accent {
+      color: #ffb366;
     }
 
-    .cabinet-top {
-      width: 200px;
-      height: 16px;
-      background: #5c3d1e;
+    .gallery-section {
+      width: 100%;
+      max-width: 900px;
+      margin-top: 1.5rem;
+      padding: 0 1rem;
     }
 
-    .cabinet-opening {
-      width: 180px;
-      height: 160px;
+    .gallery-section h2 {
+      font-size: clamp(0.875rem, 2.5vw, 1.25rem);
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+      gap: 0.75rem;
+      list-style: none;
+    }
+
+    .gallery li {
+      aspect-ratio: 1;
+    }
+
+    .gallery figure {
+      margin: 0;
+      height: 100%;
       background: #2a2a2a;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
       border: 4px solid #4a3520;
-      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .cat {
-      width: 120px;
-      height: 100px;
-      position: relative;
+    .gallery figure:focus {
+      outline: 2px solid #ffb366;
+      outline-offset: 2px;
     }
 
-    /* Cat pixel art using box-shadows */
-    .cat-pixel {
-      width: 8px;
-      height: 8px;
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      vertical-align: middle;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      padding: 1rem;
+    }
+
+    .lightbox[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .lightbox-backdrop {
       position: absolute;
-      background: transparent;
-      box-shadow:
-        /* Ears */
-        24px 0 0 #ff9933,
-        32px 0 0 #ff9933,
-        80px 0 0 #ff9933,
-        88px 0 0 #ff9933,
-        24px 8px 0 #ff9933,
-        32px 8px 0 #ffb366,
-        40px 8px 0 #ff9933,
-        72px 8px 0 #ff9933,
-        80px 8px 0 #ffb366,
-        88px 8px 0 #ff9933,
-        /* Head top */
-        32px 16px 0 #ff9933,
-        40px 16px 0 #ff9933,
-        48px 16px 0 #ff9933,
-        56px 16px 0 #ff9933,
-        64px 16px 0 #ff9933,
-        72px 16px 0 #ff9933,
-        80px 16px 0 #ff9933,
-        /* Head */
-        24px 24px 0 #ff9933,
-        32px 24px 0 #ff9933,
-        40px 24px 0 #ff9933,
-        48px 24px 0 #ff9933,
-        56px 24px 0 #ff9933,
-        64px 24px 0 #ff9933,
-        72px 24px 0 #ff9933,
-        80px 24px 0 #ff9933,
-        88px 24px 0 #ff9933,
-        /* Eyes row */
-        24px 32px 0 #ff9933,
-        32px 32px 0 #ff9933,
-        40px 32px 0 #000,
-        48px 32px 0 #ff9933,
-        56px 32px 0 #ff9933,
-        64px 32px 0 #ff9933,
-        72px 32px 0 #000,
-        80px 32px 0 #ff9933,
-        88px 32px 0 #ff9933,
-        /* Nose/mouth row */
-        24px 40px 0 #ff9933,
-        32px 40px 0 #ff9933,
-        40px 40px 0 #ff9933,
-        48px 40px 0 #ff9933,
-        56px 40px 0 #ffb3b3,
-        64px 40px 0 #ff9933,
-        72px 40px 0 #ff9933,
-        80px 40px 0 #ff9933,
-        88px 40px 0 #ff9933,
-        /* Whiskers/chin */
-        16px 48px 0 #ccc,
-        24px 48px 0 #ff9933,
-        32px 48px 0 #ff9933,
-        40px 48px 0 #ff9933,
-        48px 48px 0 #ffb366,
-        56px 48px 0 #ffb366,
-        64px 48px 0 #ffb366,
-        72px 48px 0 #ff9933,
-        80px 48px 0 #ff9933,
-        88px 48px 0 #ff9933,
-        96px 48px 0 #ccc,
-        /* Body */
-        24px 56px 0 #ff9933,
-        32px 56px 0 #ff9933,
-        40px 56px 0 #ffb366,
-        48px 56px 0 #ffb366,
-        56px 56px 0 #ffb366,
-        64px 56px 0 #ffb366,
-        72px 56px 0 #ffb366,
-        80px 56px 0 #ff9933,
-        88px 56px 0 #ff9933,
-        /* Body */
-        16px 64px 0 #ff9933,
-        24px 64px 0 #ff9933,
-        32px 64px 0 #ffb366,
-        40px 64px 0 #ffb366,
-        48px 64px 0 #ffb366,
-        56px 64px 0 #ffb366,
-        64px 64px 0 #ffb366,
-        72px 64px 0 #ffb366,
-        80px 64px 0 #ff9933,
-        88px 64px 0 #ff9933,
-        96px 64px 0 #ff9933,
-        /* Paws */
-        16px 72px 0 #ff9933,
-        24px 72px 0 #ffb366,
-        32px 72px 0 #ffb366,
-        40px 72px 0 #ffb366,
-        48px 72px 0 #ffb366,
-        56px 72px 0 #ffb366,
-        64px 72px 0 #ffb366,
-        72px 72px 0 #ffb366,
-        80px 72px 0 #ffb366,
-        88px 72px 0 #ff9933,
-        96px 72px 0 #ff9933,
-        /* Front paws */
-        16px 80px 0 #ffcc99,
-        24px 80px 0 #ffcc99,
-        32px 80px 0 #ff9933,
-        40px 80px 0 #ff9933,
-        48px 80px 0 #ff9933,
-        56px 80px 0 #ff9933,
-        64px 80px 0 #ff9933,
-        72px 80px 0 #ff9933,
-        80px 80px 0 #ffcc99,
-        88px 80px 0 #ffcc99;
+      inset: 0;
+      cursor: pointer;
     }
 
-    .shelf {
-      width: 200px;
-      height: 12px;
+    .lightbox-content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 95vh;
+      max-height: 95dvh;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 95vh;
+      max-height: 95dvh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+      border: none;
+      background: #4a3520;
+      color: #fff;
+      font: inherit;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-close:focus {
       background: #5c3d1e;
-      margin-top: -4px;
+      outline: 2px solid #ffb366;
+      outline-offset: 2px;
     }
 
-    .cabinet-bottom {
-      width: 200px;
-      height: 24px;
-      background: #8b5a2b;
-      border-top: 4px solid #5c3d1e;
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding: 0.5rem 0;
+      min-height: 44px;
+      color: #ffb366;
+      text-decoration: none;
+      font-size: clamp(0.8125rem, 2vw, 0.9rem);
+      letter-spacing: 0.1rem;
+    }
+
+    .instagram-link:hover {
+      text-decoration: underline;
+      color: #ffcc99;
+    }
+
+    .instagram-link:hover .instagram-icon {
+      fill: #ffcc99;
+    }
+
+    .instagram-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+      fill: #ffb366;
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.875rem;
+      margin-top: 1.5rem;
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
       opacity: 0.6;
     }
   </style>
 </head>
 <body>
-  <h1>Coming Soon</h1>
+  <h1 class="site-title">Cat <span class="accent">Cabinet</span></h1>
 
-  <div class="cabinet pixel-art">
-    <div class="cabinet-top"></div>
-    <div class="cabinet-opening">
-      <div class="cat">
-        <div class="cat-pixel"></div>
-      </div>
+  <section class="gallery-section">
+    <ul class="gallery" id="gallery" aria-label="Image gallery in date order">
+    <li><figure tabindex="0" role="button"><img src="instagram_posts/noobs-flyer_2_26_26.png" alt="" loading="lazy"></figure></li>
+    <li><figure tabindex="0" role="button"><img src="instagram_posts/veledrome_2_19_26.JPG" alt="" loading="lazy"></figure></li>
+  </ul>
+    <a
+      class="instagram-link"
+      href="https://www.instagram.com/catcabinetimprov/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.218 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.14-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      Follow @catcabinetimprov
+    </a>
+  </section>
+
+  <footer></footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Enlarged image">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+      <img id="lightbox-img" src="" alt="">
     </div>
-    <div class="shelf"></div>
-    <div class="cabinet-bottom"></div>
   </div>
 
-  <footer>Something purrfect is on the way...</footer>
+  <script>
+    (function () {
+      var gallery = document.getElementById('gallery');
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      var backdrop = document.getElementById('lightbox-backdrop');
+      var closeBtn = document.getElementById('lightbox-close');
+
+      function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      gallery.addEventListener('click', function (e) {
+        var img = e.target.closest('figure img');
+        if (img && img.src) {
+          e.preventDefault();
+          openLightbox(img.src);
+        }
+      });
+
+      gallery.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var fig = e.target.closest('figure');
+        if (fig) {
+          var img = fig.querySelector('img');
+          if (img && img.src) {
+            e.preventDefault();
+            openLightbox(img.src);
+          }
+        }
+      });
+
+      backdrop.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', closeLightbox);
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
