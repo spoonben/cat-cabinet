@@ -55,134 +55,6 @@
       color: #ffb366;
     }
 
-    .gallery-section {
-      width: 100%;
-      max-width: 900px;
-      margin-top: 1.5rem;
-      padding: 0 1rem;
-    }
-
-    .gallery-section h2 {
-      font-size: clamp(0.875rem, 2.5vw, 1.25rem);
-      text-transform: uppercase;
-      letter-spacing: 0.2rem;
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
-      gap: 0.75rem;
-      list-style: none;
-    }
-
-    .gallery li {
-      aspect-ratio: 1;
-    }
-
-    .gallery figure {
-      margin: 0;
-      height: 100%;
-      background: #2a2a2a;
-      border: 4px solid #4a3520;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .gallery figure:focus {
-      outline: 2px solid #ffb366;
-      outline-offset: 2px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      vertical-align: middle;
-    }
-
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.9);
-      align-items: center;
-      justify-content: center;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-      padding: 1rem;
-    }
-
-    .lightbox[aria-hidden="false"] {
-      display: flex;
-    }
-
-    .lightbox-backdrop {
-      position: absolute;
-      inset: 0;
-      cursor: pointer;
-    }
-
-    .lightbox-content {
-      position: relative;
-      max-width: 95vw;
-      max-height: 95vh;
-      max-height: 95dvh;
-    }
-
-    .lightbox-content img {
-      max-width: 100%;
-      max-height: 95vh;
-      max-height: 95dvh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: -2.5rem;
-      right: 0;
-      width: 2.5rem;
-      height: 2.5rem;
-      min-width: 44px;
-      min-height: 44px;
-      padding: 0;
-      border: none;
-      background: #4a3520;
-      color: #fff;
-      font: inherit;
-      font-size: 1.5rem;
-      line-height: 1;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .lightbox-close:hover,
-    .lightbox-close:focus {
-      background: #5c3d1e;
-      outline: 2px solid #ffb366;
-      outline-offset: 2px;
-    }
-
-    .instagram-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      padding: 0.5rem 0;
-      min-height: 44px;
-      color: #ffb366;
-      text-decoration: none;
-      font-size: clamp(0.8125rem, 2vw, 0.9rem);
-      letter-spacing: 0.1rem;
-    }
-
     .instagram-link:hover {
       text-decoration: underline;
       color: #ffcc99;
@@ -209,11 +81,7 @@
 <body>
   <h1 class="site-title">Cat <span class="accent">Cabinet</span></h1>
 
-  <section class="gallery-section">
-    <ul class="gallery" id="gallery" aria-label="Image gallery in date order">
-    <li><figure tabindex="0" role="button"><img src="instagram_posts/noobs-flyer_2_26_26.png" alt="" loading="lazy"></figure></li>
-    <li><figure tabindex="0" role="button"><img src="instagram_posts/veledrome_2_19_26.JPG" alt="" loading="lazy"></figure></li>
-  </ul>
+  <section>
     <a
       class="instagram-link"
       href="https://www.instagram.com/catcabinetimprov/"
@@ -240,55 +108,5 @@
     </div>
   </div>
 
-  <script>
-    (function () {
-      var gallery = document.getElementById('gallery');
-      var lightbox = document.getElementById('lightbox');
-      var lightboxImg = document.getElementById('lightbox-img');
-      var backdrop = document.getElementById('lightbox-backdrop');
-      var closeBtn = document.getElementById('lightbox-close');
-
-      function openLightbox(src) {
-        lightboxImg.src = src;
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        closeBtn.focus();
-      }
-
-      function closeLightbox() {
-        lightbox.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      gallery.addEventListener('click', function (e) {
-        var img = e.target.closest('figure img');
-        if (img && img.src) {
-          e.preventDefault();
-          openLightbox(img.src);
-        }
-      });
-
-      gallery.addEventListener('keydown', function (e) {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        var fig = e.target.closest('figure');
-        if (fig) {
-          var img = fig.querySelector('img');
-          if (img && img.src) {
-            e.preventDefault();
-            openLightbox(img.src);
-          }
-        }
-      });
-
-      backdrop.addEventListener('click', closeLightbox);
-      closeBtn.addEventListener('click', closeLightbox);
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
-          closeLightbox();
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
